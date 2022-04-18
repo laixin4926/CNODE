@@ -115,7 +115,9 @@ export default {
 #reply {
   margin-top: 15px;
 }
-
+#reply .zan {
+  float: right;
+}
 #reply img {
   width: 30px;
   height: 30px;
@@ -138,7 +140,11 @@ export default {
   text-align: center;
   padding-top: 300px;
 }
-
+.loading img {
+  height: 30px;
+  width: 30px;
+  vertical-align: middle;
+}
 .replyUp a:nth-of-type(2) {
   margin-left: 0px;
   display: inline-block;

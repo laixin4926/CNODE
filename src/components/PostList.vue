@@ -56,25 +56,35 @@
             {{ post.last_reply_at | formatDate }}
           </span>
         </li>
+        <li>
+          <pagination @handleList="renderList"></pagination>
+        </li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+import pagination from "./Pagination.vue";
 export default {
   data() {
     return {
       isLoading: false,
       posts: [],
+      postpage: 1,
     };
+  },
+  components: {
+    pagination,
   },
   methods: {
     getData() {
       this.$http
         .get("https://cnodejs.org/api/v1/topics", {
-          page: 1,
-          limit: 20,
+          params: {
+            page: this.postpage,
+            limit: 20,
+          },
         })
         .then((res) => {
           this.isLoading = false;
@@ -83,6 +93,10 @@ export default {
         .catch(function (err) {
           console.log(err);
         });
+    },
+    renderList(value) {
+      this.postpage = value;
+      this.getData();
     },
   },
   beforeMount() {

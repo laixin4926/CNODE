@@ -1,18 +1,18 @@
 <template>
   <div class="pagination">
-    <button @click="changeBtn">首页</button>
-    <button @click="changeBtn">上一页</button>
+    <button @click="changeBtn" class="pagebtn">Home</button>
+    <button @click="changeBtn" class="pagebtn">«</button>
     <button v-if="jduge" class="pagebtn">....</button>
     <button
       v-for="(btn, index) in pagebtns"
       :key="index"
       @click="changeBtn(btn)"
-      :class="[{ currentPage: btn == currentPage }, 'pagebtns']"
+      :class="[{ currentPage: btn == currentPage }]"
     >
       {{ btn }}
     </button>
-
-    <button @click="changeBtn">下一页</button>
+    <button class="pagebtn">....</button>
+    <button @click="changeBtn" class="pagebtn">»</button>
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
   component: [$],
   data() {
     return {
-      pagebtns: [1, 2, 3, 4, 5, "...."],
+      pagebtns: [1, 2, 3, 4, 5],
       currentPage: 1,
       jduge: false,
     };
@@ -33,13 +33,13 @@ export default {
     changeBtn(page) {
       if (typeof page != "number") {
         switch (page.target.innerText) {
-          case "上一页":
+          case "«":
             $("button.currentPage").prev().click();
             break;
-          case "下一页":
+          case "»":
             $("button.currentPage").next().click();
             break;
-          case "首页":
+          case "Home":
             this.pagebtns = [1, 2, 3, 4, 5, "...."];
             this.currentPage = 1;
             break;
@@ -77,6 +77,7 @@ export default {
   border-radius: 5px;
   /*box-shadow: 0px 2px 9px #888888;*/
   border: 1px solid #888888;
+  font-size: 0;
 }
 
 button {
@@ -88,15 +89,16 @@ button {
   height: 21px;
   cursor: pointer;
   padding: 0 2px;
-  width: 51px;
+
+  width: 55px;
   height: 29px;
 }
 
 .pagebtn {
   position: relative;
-  bottom: 1px;
-  width: 40px;
-  margin: 0 4px;
+
+  width: 55px;
+  /* margin: 0 4px; */
 }
 
 .currentPage {

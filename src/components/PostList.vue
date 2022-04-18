@@ -7,8 +7,8 @@
       <ul>
         <li>
           <div class="toobar">
-            <span>全部</span>
-            <span>精华</span>
+            <span @click="aaa(all)">全部</span>
+            <span @click="aaa(top)">精华</span>
             <span>分享</span>
             <span>问答</span>
             <span>招聘</span>
@@ -16,7 +16,9 @@
         </li>
         <li v-for="(post, index) in posts" :key="index">
           <!-- 头像 -->
+
           <img :src="post.author.avatar_url" />
+
           <!-- 回复/浏览 -->
           <span>
             <span class="reply_count">{{ post.reply_count }}</span>
@@ -97,6 +99,10 @@ export default {
     renderList(value) {
       this.postpage = value;
       this.getData();
+    },
+    aaa(value) {
+      if (value == top) {
+      }
     },
   },
   beforeMount() {

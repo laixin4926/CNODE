@@ -7,11 +7,21 @@
       <ul>
         <li>
           <div class="toobar">
-            <span @click="aaa(all)">全部</span>
-            <span @click="aaa(top)">精华</span>
-            <span>分享</span>
-            <span>问答</span>
-            <span>招聘</span>
+            <span @click="aaa('all')" :class="xxx === 'all' && 'selected'"
+              >全部</span
+            >
+            <span @click="aaa('top')" :class="xxx === 'top' && 'selected'"
+              >精华</span
+            >
+            <span @click="aaa('share')" :class="xxx === 'share' && 'selected'"
+              >分享</span
+            >
+            <span @click="aaa('ask')" :class="xxx === 'ask' && 'selected'"
+              >问答</span
+            >
+            <span @click="aaa('hires')" :class="xxx === 'hires' && 'selected'"
+              >招聘</span
+            >
           </div>
         </li>
         <li v-for="(post, index) in posts" :key="index">
@@ -74,6 +84,7 @@ export default {
       isLoading: false,
       posts: [],
       postpage: 1,
+      xxx: "all",
     };
   },
   components: {
@@ -82,7 +93,7 @@ export default {
   methods: {
     getData() {
       this.$http
-        .get("https://cnodejs.org/api/v1/topics", {
+        .get("https://cnodejs.org/api/v1/topics?tab=good", {
           params: {
             page: this.postpage,
             limit: 20,
@@ -101,8 +112,8 @@ export default {
       this.getData();
     },
     aaa(value) {
-      if (value == top) {
-      }
+      this.xxx = value;
+      /* console.log(xxx.target.className); */
     },
   },
   beforeMount() {
@@ -113,6 +124,11 @@ export default {
 </script>
 
 <style  scoped>
+.PostList .selected {
+  background-color: rgb(128, 181, 1);
+  color: white;
+  padding: 2px;
+}
 .PostList {
   background-color: #e1e1e1;
 }

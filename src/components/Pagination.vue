@@ -90,19 +90,22 @@ button {
   cursor: pointer;
   padding: 0 2px;
 
-  width: 55px;
+  width: 45px;
   height: 29px;
+}
+button:hover {
+  background-color: rgb(171, 174, 174);
 }
 
 .pagebtn {
   position: relative;
 
-  width: 55px;
+  width: 45px;
   /* margin: 0 4px; */
 }
 
 .currentPage {
-  color: white;
-  background-color: #1f1b1b;
+  color: rgb(245, 245, 245);
+  background-color: #1d1a1a;
 }
 </style>

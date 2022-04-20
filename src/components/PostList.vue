@@ -7,19 +7,29 @@
       <ul>
         <li>
           <div class="toobar">
-            <span @click="aaa('all')" :class="xxx === 'all' && 'selected'"
+            <span
+              @click="judgeType('all')"
+              :class="type === 'all' && 'selected'"
               >全部</span
             >
-            <span @click="aaa('top')" :class="xxx === 'top' && 'selected'"
+            <span
+              @click="judgeType('good')"
+              :class="type === 'good' && 'selected'"
               >精华</span
             >
-            <span @click="aaa('share')" :class="xxx === 'share' && 'selected'"
+            <span
+              @click="judgeType('share')"
+              :class="type === 'share' && 'selected'"
               >分享</span
             >
-            <span @click="aaa('ask')" :class="xxx === 'ask' && 'selected'"
+            <span
+              @click="judgeType('ask')"
+              :class="type === 'ask' && 'selected'"
               >问答</span
             >
-            <span @click="aaa('hires')" :class="xxx === 'hires' && 'selected'"
+            <span
+              @click="judgeType('job')"
+              :class="type === 'job' && 'selected'"
               >招聘</span
             >
           </div>
@@ -27,8 +37,15 @@
         <li v-for="(post, index) in posts" :key="index">
           <!-- 头像 -->
 
-          <img :src="post.author.avatar_url" />
-
+          <router-link
+            :to="{
+              name: 'user_info',
+              params: {
+                name: post.author.loginname,
+              },
+            }"
+            ><img :src="post.author.avatar_url" />
+          </router-link>
           <!-- 回复/浏览 -->
           <span>
             <span class="reply_count">{{ post.reply_count }}</span>
@@ -84,17 +101,23 @@ export default {
       isLoading: false,
       posts: [],
       postpage: 1,
-      xxx: "all",
+      type: "all",
     };
   },
   components: {
     pagination,
   },
   methods: {
+    judgeType(value) {
+      this.type = value;
+      this.getData();
+      /* console.log(type.target.className); */
+    },
     getData() {
       this.$http
-        .get("https://cnodejs.org/api/v1/topics?tab=good", {
+        .get("https://cnodejs.org/api/v1/topics", {
           params: {
+            tab: this.type,
             page: this.postpage,
             limit: 20,
           },
@@ -111,10 +134,6 @@ export default {
       this.postpage = value;
       this.getData();
     },
-    aaa(value) {
-      this.xxx = value;
-      /* console.log(xxx.target.className); */
-    },
   },
   beforeMount() {
     this.isLoading = true;
@@ -127,7 +146,8 @@ export default {
 .PostList .selected {
   background-color: rgb(128, 181, 1);
   color: white;
-  padding: 2px;
+  padding: 2.5px;
+  border-radius: 3px;
 }
 .PostList {
   background-color: #e1e1e1;

@@ -5,7 +5,7 @@
     </router-link>
 
     <ul>
-      <li><a href="/root">首页</a></li>
+      <li>使用技术栈：Vue、Vue-router、jQuery、Axios</li>
     </ul>
   </div>
 </template>
@@ -34,6 +34,7 @@ ul {
 li {
   display: inline-block;
   padding: 10px 15px;
+  color: #ccc;
 }
 a {
   text-decoration: none;
